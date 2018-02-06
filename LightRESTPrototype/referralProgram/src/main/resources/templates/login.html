@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head> 
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}"
+              rel="stylesheet" media="screen" />
+        <link th:href="@{static/css/login.css}"
+              rel="stylesheet" media="screen" />
+
+        <script th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+        <script src="../static/js/login.js"></script>
+        <link href="../static/css/guru.css"
+              th:href="@{css/guru.css}" rel="stylesheet" media="screen"/>
+        <link href="../static/css/guru.css"
+              th:href="@{css/guru.css}" rel="stylesheet" media="screen"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <!-- Google Fonts -->
+	<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'/>
+	<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'/>
+
+        
+        <script>
+            $(document).ready(function () {
+                
+                $('.input-group input[required]').on('keyup change', function() {
+                    var $form = $(this).closest('loginform'),
+                        $group = $(this).closest('.input-group'),
+                                    $addon = $group.find('.input-group-addon'),
+                                    $icon = $addon.find('span'),
+                                    state = false;
+
+                    if (!$group.data('validate')) {
+                                    state = $(this).val() ? true : false;
+                            }else if ($group.data('validate') == "email") {
+                                    state = /^([a-zA-Z0-9_\.\-])+\@(infosys+\.)+(com)+$/.test($(this).val())
+                            }
+
+                            if (state) {
+                                            $addon.removeClass('danger');
+                                            $addon.addClass('success');
+                                            $icon.attr('class', 'glyphicon glyphicon-ok');
+                            }else{
+                                            $addon.removeClass('success');
+                                            $addon.addClass('danger');
+                                            $icon.attr('class', 'glyphicon glyphicon-remove');
+                            }
+
+                    if ($form.find('.input-group-addon.danger').length == 0) {
+                        $form.find('[type="submit"]').prop('disabled', false);
+                    }else{
+                        $form.find('[type="submit"]').prop('disabled', true);
+                    }
+                    });
+
+                $('.input-group input[required]').trigger('change');
+                
+                $('#isAdmin').change(function () {
+                  $('#password').fadeToggle();
+                }); 
+            });           
+       
+        </script>
+        
+      
+        <title>Enter Informee</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row main">
+                <div class="panel-heading">
+                    <div class="panel-title text-center">
+                        <h1 class="title">Informee Web</h1>
+                        <hr />
+                    </div>
+                </div> 
+                <div class="main-login main-center">
+                    <form class="form-horizontal" th:action="@{/login}" method="post" id="loginForm">
+
+                        <div class="form-group">
+                            <label for="email" class="cols-sm-2 control-label">Enter your Infosys Email</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group" data-validate="email">                                    
+                                    <input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email" required="true"/>
+                                    <span class="input-group-addon danger"><span class="glyphicon glyphicon-remove"></span></span>                                   
+                                </div>                                
+                                 <input type="password" class="form-control" name="password" id="password"  placeholder="Enter your admin password"/>
+                                <small class="text-muted">Almost there!!</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group ">                            
+                            <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Proceed!</button>
+                            <div class="checkbox">
+                                <label><input id="isAdmin" type="checkbox" value="false" checked="true"/>I am administrator! =) </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="static/assets/js/bootstrap.js"></script>        
+    </body>
+</html>

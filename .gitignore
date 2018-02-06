@@ -1,0 +1,11 @@
+*.class
+*.zip
+*.tar
+*.gz
+*.jar
+
+\target/
+\node_modules/
+\.idea/
+\.mvn/
+\built/
